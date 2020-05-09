@@ -43,6 +43,8 @@ public class FXMLController {
 
     @FXML
     void doAnalizzaAeroporti(ActionEvent event) {
+		txtResult.clear();
+
     	int x ;
     	try {
     		x = Integer.parseInt(compagnieMinimo.getText());
@@ -63,7 +65,8 @@ public class FXMLController {
 
     @FXML
     void doTestConnessione(ActionEvent event) {
-    	
+		txtResult.clear();
+
     	Airport a1 = cmbBoxAeroportoPartenza.getValue();
     	Airport a2 = cmbBoxAeroportoDestinazione.getValue();
     	
@@ -77,7 +80,12 @@ public class FXMLController {
     	if(percorso == null) {
     		txtResult.appendText("I due aeroporti non sono collegati!!!");
     	} else {
-    		txtResult.appendText(percorso.toString());
+    		
+    		txtResult.appendText("Percorso: \n");
+    		for(Airport a : percorso) {
+        		txtResult.appendText(a.toString() + "\n");
+
+    		}
     	}
 
     }

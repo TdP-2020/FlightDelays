@@ -23,7 +23,7 @@ public class Model {
 	private Map<Integer, Airport> idMap;
 	private ExtFlightDelaysDAO dao;
 	
-	private Map<Airport,Airport> visita = new HashMap<>();
+	private Map<Airport,Airport> visita;
 		
 	
 	public Model() {
@@ -45,7 +45,7 @@ public class Model {
 
 			for(Rotta r : dao.getRotte(idMap)) {
 				
-				//if(this.grafo.containsVertex(r.getA1()) && this.grafo.containsVertex(r.getA2())) {
+				if(this.grafo.containsVertex(r.getA1()) && this.grafo.containsVertex(r.getA2())) {
 					
 					DefaultWeightedEdge e = this.grafo.getEdge(r.a1, r.a2);
 					if(e == null) {
@@ -56,7 +56,7 @@ public class Model {
 						this.grafo.setEdgeWeight(e, pesoNuovo);
 						
 					}
-				//}
+				}
 				
 			}
 		}
@@ -77,6 +77,9 @@ public class Model {
 	
 	public List<Airport> trovaPercorso(Airport a1, Airport a2){
 		List<Airport> percorso = new ArrayList<Airport>();
+		
+		//reinizializzo la mappa della visita
+		visita = new HashMap<>();
 		
 		BreadthFirstIterator<Airport, DefaultWeightedEdge> it = new BreadthFirstIterator<>(this.grafo,a1);
 		
@@ -129,7 +132,7 @@ public class Model {
 		
 		
 		while(it.hasNext()) {
-			it.hasNext();
+			it.next();
 		}
 		
 		
